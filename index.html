@@ -1,0 +1,195 @@
+<div id="port">
+		<div id="app"></div>
+		<div class="grid" id="itemsWrapper">
+			<figure class="grid__item">
+				<img class="grid__item-img uno" src="/img/roc.jpg" alt="An image" />
+				<img class="grid__item-img grid__item-img--large" src="/img/roc.jpg" />
+				<figcaption class="grid__item-caption">
+					<h2 class="grid__item-title uno-title">Velocitii</h2>
+					<p class="grid__item-text uno-text">
+						Website for business solutions provider
+					</p>
+				</figcaption>
+			</figure>
+			<figure class="grid__item">
+				<img class="grid__item-img dos" src="/img/lawn.jpg" alt="An image" />
+				<img class="grid__item-img grid__item-img--large" src="/img/lawn.jpg" />
+				<figcaption class="grid__item-caption">
+					<h2 class="grid__item-title dos-title">Cadles</h2>
+					<p class="grid__item-text dos-text">
+						Website for landscaping company
+					</p>
+				</figcaption>
+			</figure>
+			<figure class="grid__item">
+				<img class="grid__item-img tres" src="/img/wsb.jpg" alt="An image" />
+				<img class="grid__item-img grid__item-img--large" src="/img/wsb.jpg" />
+				<figcaption class="grid__item-caption">
+					<h2 class="grid__item-title tres-title">Water Street</h2>
+					<p class="grid__item-text tres-text">
+						Website for historic music hall
+					</p>
+				</figcaption>
+			</figure>
+<figure class="grid__item">
+				<img class="grid__item-img dos" src="/img/promo.jpg" alt="An image" />
+				<img class="grid__item-img grid__item-img--large" src="/img/promo.jpg" alt="An image" />
+				<figcaption class="grid__item-caption">
+					<h2 class="grid__item-title dos-title">ImageNow</h2>
+					<p class="grid__item-text dos-text">
+						Website for branding company
+					</p>
+				</figcaption>
+			</figure>
+		</div>
+		<div class="fullview">
+			<div class="fullview__item">
+		<a class="fullview__item-title" href="https://davisgary.com/one">View Study <img class="port-img" src="/img/next.svg" alt=""></a>
+			</div>
+			<div class="fullview__item">
+				<a class="fullview__item-title" href="http://cadlescapes.com" target="_blank" rel="noopener noreferrer">Visit Site <img class="port-img" src="/img/next.svg" alt=""></a>
+			</div>
+			<div class="fullview__item">
+				<a class="fullview__item-title" href="/img/wsmh.pdf" target="_blank" rel="noopener noreferrer">View Design <img class="port-img" src="/img/next.svg" alt=""></a>
+			</div>
+<div class="fullview__item">
+				<a class="fullview__item-title" href="https://imagenowbymahar.com" target="_blank" rel="noopener noreferrer">View Site <img class="port-img" src="/img/next.svg" alt=""></a>
+			</div>
+			<button class="fullview__close" aria-label="Close preview"><svg aria-hidden="true" width="24" height="22px" viewBox="0 0 24 22"><path d="M11 9.586L20.192.393l1.415 1.415L12.414 11l9.193 9.192-1.415 1.415L11 12.414l-9.192 9.193-1.415-1.415L9.586 11 .393 1.808 1.808.393 11 9.586z" /></svg></button>
+	</div> 
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<script src="/js/three.min.js"></script>
+	<script src="/js/TweenLite.min.js"></script>
+	<script src="/js/CSSPlugin.min.js"></script>
+	<script src="/js/EasePack.min.js"></script>
+	<script src="/js/GridToFullscreenEffect.js"></script>
+	<script src="/js/basicDemo.js"></script>
+	<script>
+			let currentIndex;
+			const itemsWrapper = document.getElementById("itemsWrapper");
+			const thumbs = [...itemsWrapper.querySelectorAll("img.grid__item-img:not(.grid__item-img--large)")];
+			const fullviewItems = [...document.querySelectorAll(".fullview__item")];
+			const backToGridCtrl = document.querySelector(".fullview__close");
+			const transitionEffectDuration = 1.8;
+
+			const transitionEffect = createDemoEffect({
+				activation: { type: "closestCorner" },
+				timing: {
+						duration: transitionEffectDuration
+				},
+				transformation: {
+						type: "flipX"
+				},
+				flipBeizerControls: {
+						c0: {
+								x: 0.4,
+								y: -0.8
+						},
+						c1: {
+								x: 0.5,
+								y: 0.9
+						}
+				},
+				onToFullscreenStart: ({ index }) => {
+					currentIndex = index;
+					thumbs[currentIndex].style.opacity = 0;
+					
+					/*
+					TweenLite.to(itemsWrapper, .5, {
+						ease: Quint.easeInOut,
+						scale: 0.5,
+						opacity: 0
+					});
+					*/
+
+					toggleFullview();
+				},
+				/*
+				onToGridStart: ({ index }) => {
+					TweenLite.to(itemsWrapper, 1, {
+						ease: Quint.easeOut,
+						scale: 1,
+						opacity: 1
+					});
+
+					toggleFullview();
+				},
+				*/
+				onToGridFinish: ({ index, lastIndex }) => {
+					thumbs[lastIndex].style.opacity = 1;
+					fullviewItems[currentIndex].classList.remove("fullview__item--current");
+				},
+				easings: {
+					toFullscreen: Quint.easeOut,
+					toGrid: Quint.easeOut
+				}
+			});
+			transitionEffect.init();
+
+			const toggleFullview = () => {
+				if ( transitionEffect.isFullscreen ) {
+					TweenLite.to(fullviewItems[currentIndex].querySelector(".fullview__item-title"), 0.2, {
+						ease: Quad.easeOut,
+						opacity: 0,
+						x: "5%"
+					});
+					TweenLite.to(backToGridCtrl, 0.2, {
+						ease: Quad.easeOut,
+						opacity: 0,
+						scale: 0
+					});
+					
+					transitionEffect.toGrid();
+				}
+				else {
+					fullviewItems[currentIndex].classList.add("fullview__item--current");
+
+					TweenLite.to(fullviewItems[currentIndex].querySelector(".fullview__item-title"), 0.8, {
+						ease: Expo.easeOut,
+						startAt: {x: "5%"},
+						opacity: 1,
+						x: "0%",
+						delay: transitionEffectDuration*0.3
+					});
+					TweenLite.to(backToGridCtrl, 0.8, {
+						ease: Expo.easeOut,
+						startAt: {scale: 0},
+						opacity: 1,
+						scale: 1,
+						delay: transitionEffectDuration*0.3
+					});
+				}
+			};
+
+			backToGridCtrl.addEventListener("click", () => {
+				if ( transitionEffect.isAnimating ) {
+					return;
+				}
+				toggleFullview();
+			});
+
+			// Preload all the images in the pageI
+			imagesLoaded(document.querySelectorAll("img"), instance => {
+				//https://www.techrepublic.com/article/preloading-and-the-javascript-image-object/
+				document.body.classList.remove("loading");
+
+				// Make Images sets for creating the textures.
+				let images = [];
+				for (var i = 0, imageSet = {}; i < instance.elements.length; i++) {
+					let image = {
+						element: instance.elements[i],
+						image: instance.images[i].isLoaded ? instance.images[i].img : null
+					};
+					if (i % 2 === 0) {
+						imageSet = {};
+						imageSet.small = image;
+					}
+
+					if (i % 2 === 1) {
+						imageSet.large = image;
+						images.push(imageSet);
+					}
+				}
+				transitionEffect.createTextures(images);
+			});
+	</script>
