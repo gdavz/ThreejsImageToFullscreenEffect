@@ -112,7 +112,6 @@
 .grid__item-img {
 	max-width: 100%;
 	cursor: pointer;
-	FILTER: GRAYSCALE(1);
 	height: 150px;
 	width: 500px;
 	object-fit: cover;
@@ -121,7 +120,6 @@
 .grid__item-img {
 	max-width: 100%;
 	cursor: pointer;
-	FILTER: GRAYSCALE(1);
 	height: 150px;
 	width: 430px;
 	object-fit: cover;
@@ -130,7 +128,6 @@
 .grid__item-img {
 	max-width: 100%;
 	cursor: pointer;
-	FILTER: GRAYSCALE(1);
 	height: 150px;
 	width: 500px;
 	object-fit: cover;
@@ -199,7 +196,7 @@ a.fullview__item-title {
 	padding-left: 6%;
 	padding-bottom: 25%;
 	line-height: 1;
-	font-size: 1.5rem;
+	font-size: 2.5rem;
 	font-weight: 400;
 	text-decoration: none;
 	opacity: 0;
